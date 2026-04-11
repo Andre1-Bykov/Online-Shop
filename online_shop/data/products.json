@@ -1,0 +1,117 @@
+{
+  "Электрогитара Fender Player Stratocaster": {
+    "brand": "Fender",
+    "model": "Player Stratocaster",
+    "type": "Electric",
+    "bodyMaterial": "Alder",
+    "neck": {
+      "material": "Maple",
+      "profile": "Modern C",
+      "fretboard": "Maple",
+      "frets": 22
+    },
+    "electronics": {
+      "pickups": "3 New Player Single-Coil",
+      "controls": "Master Volume, Tone 1, Tone 2",
+      "switch": "5-Position Blade"
+    },
+    "bridge": "2-Point Synchronized Tremolo",
+    "images": [
+      "fender_strat_player_sunburst_1.png",
+      "fender_strat_player_sunburst_2.png"
+    ],
+    "description": "Классический звук и стиль Fender в современном исполнении серии Player."
+  },
+
+  "Электрогитара Gibson Les Paul Standard '60s": {
+    "brand": "Gibson",
+    "model": "Les Paul Standard '60s",
+    "type": "Electric",
+    "bodyMaterial": "Mahogany with AA Maple Top",
+    "neck": {
+      "material": "Mahogany",
+      "profile": "SlimTaper",
+      "fretboard": "Rosewood",
+      "frets": 22
+    },
+    "electronics": {
+      "pickups": "60s Burstbucker",
+      "controls": "2 Volumes, 2 Tones",
+      "switch": "3-Way Toggle"
+    },
+    "bridge": "ABR-1 Tune-O-Matic",
+    "images": [
+      "gibson_lp_standard_60s_1.png",
+      "gibson_lp_standard_60s_2.png"
+    ],
+    "description": "Возвращение к классическому дизайну, который сформировал звучание поколений."
+  },
+
+  "Акустическая гитара Yamaha F310": {
+    "brand": "Yamaha",
+    "model": "F310 Natural",
+    "type": "Acoustic",
+    "bodyMaterial": "Spruce/Meranti",
+    "neck": {
+      "material": "Nato",
+      "profile": "Standard",
+      "fretboard": "Rosewood",
+      "frets": 20
+    },
+    "electronics": null,
+    "bridge": "Rosewood",
+    "images": [
+      "yamaha_f310_nat_1.png",
+      "yamaha_f310_nat_2.png"
+    ],
+    "description": "Идеальный выбор для начинающих: отличное качество сборки и сбалансированный звук."
+  },
+
+  "Электрогитара Ibanez RG421AHM": {
+    "brand": "Ibanez",
+    "model": "RG421AHM-BMT",
+    "type": "Electric",
+    "bodyMaterial": "Ash",
+    "neck": {
+      "material": "Maple",
+      "profile": "Wizard III",
+      "fretboard": "Maple",
+      "frets": 24
+    },
+    "electronics": {
+      "pickups": "Quantum (H) neck/bridge",
+      "controls": "Volume, Tone",
+      "switch": "5-Way Selector"
+    },
+    "bridge": "F106 fixed bridge",
+    "images": [
+      "ibanez_rg421_blue_1.png",
+      "ibanez_rg421_blue_2.png"
+    ],
+    "description": "Скоростная гитара с тонким грифом, идеально подходящая для металла и рока."
+  },
+
+  "Электроакустическая гитара Taylor 214ce": {
+    "brand": "Taylor",
+    "model": "214ce Grand Auditorium",
+    "type": "Electro-Acoustic",
+    "bodyMaterial": "Sitka Spruce/Rosewood",
+    "neck": {
+      "material": "Tropical Mahogany",
+      "profile": "Standard",
+      "fretboard": "Ebony",
+      "frets": 20
+    },
+    "electronics": {
+      "preamp": "Expression System 2",
+      "controls": "Volume, Treble, Bass",
+      "switch": null
+    },
+    "bridge": "Ebony",
+    "images": [
+      "taylor_214ce_1.png",
+      "taylor_214ce_2.png"
+    ],
+    "description": "Универсальный инструмент с профессиональной электроникой и глубоким резонансом."
+  }
+}
