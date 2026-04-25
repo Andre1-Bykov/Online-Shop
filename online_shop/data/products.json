@@ -17,8 +17,7 @@
     },
     "bridge": "2-Point Synchronized Tremolo",
     "images": [
-      "fender_strat_player_sunburst_1.png",
-      "fender_strat_player_sunburst_2.png"
+      "Fender-Player-Stratocaster.webp"
     ],
     "description": "Классический звук и стиль Fender в современном исполнении серии Player."
   },
@@ -41,8 +40,7 @@
     },
     "bridge": "ABR-1 Tune-O-Matic",
     "images": [
-      "gibson_lp_standard_60s_1.png",
-      "gibson_lp_standard_60s_2.png"
+      "Gibson-Les-Paul-Standard-'60s.webp"
     ],
     "description": "Возвращение к классическому дизайну, который сформировал звучание поколений."
   },
@@ -61,8 +59,7 @@
     "electronics": null,
     "bridge": "Rosewood",
     "images": [
-      "yamaha_f310_nat_1.png",
-      "yamaha_f310_nat_2.png"
+      "Yamaha-F310.webp"
     ],
     "description": "Идеальный выбор для начинающих: отличное качество сборки и сбалансированный звук."
   },
@@ -85,8 +82,7 @@
     },
     "bridge": "F106 fixed bridge",
     "images": [
-      "ibanez_rg421_blue_1.png",
-      "ibanez_rg421_blue_2.png"
+      "Ibanez-RG421AHM.webp"
     ],
     "description": "Скоростная гитара с тонким грифом, идеально подходящая для металла и рока."
   },
@@ -109,8 +105,7 @@
     },
     "bridge": "Ebony",
     "images": [
-      "taylor_214ce_1.png",
-      "taylor_214ce_2.png"
+      "Taylor-214ce.webp"
     ],
     "description": "Универсальный инструмент с профессиональной электроникой и глубоким резонансом."
   }

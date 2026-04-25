@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Магазин гитар</title>
   <link rel="stylesheet" href="./styles/styles.css">
+  <script src="./js/main.js" defer></script>
+  <link rel="icon" href="./images/icon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
 
   <!-- Шапка -->
   <header>
     <h1>Guitar Shop</h1>
+    <img src="/images/icon.png" alt="logo" id="logo">
     <nav>
       <a href="#">Главная</a>
       <a href="#">Каталог</a>
@@ -31,7 +35,8 @@
   <section class="catalog">
     <h2>Каталог товаров</h2>
     <div class="catalog-placeholder">
-      <p>Здесь будут карточки товаров (на следующем этапе)</p>
+      <div id="catalog">
+      </div>
     </div>
   </section>
 
