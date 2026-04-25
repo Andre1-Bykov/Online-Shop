@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music-Shop</title>
-    <link rel="stylesheet" href="./styles/styles.css">
-    <script src="./js/main.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Магазин гитар</title>
+  <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
-    
+
+  <!-- Шапка -->
+  <header>
+    <h1>Guitar Shop</h1>
+    <nav>
+      <a href="#">Главная</a>
+      <a href="#">Каталог</a>
+      <a href="#">Контакты</a>
+    </nav>
+    <div class="cart" id="cart">
+        🛒 Корзина (<span id="cart-count">0</span>)
+    </div>
+  </header>
+
+  <!-- Поиск товаров -->
+  <section class="search-section">
+    <h2>Поиск товаров</h2>
+    <input type="text" placeholder="Введите название гитары...">
+  </section>
+
+  <!-- Каталог (пока без карточек) -->
+  <section class="catalog">
+    <h2>Каталог товаров</h2>
+    <div class="catalog-placeholder">
+      <p>Здесь будут карточки товаров (на следующем этапе)</p>
+    </div>
+  </section>
+
+  <!-- Подвал -->
+  <footer>
+    <p>© 2026 Guitar Shop</p>
+  </footer>
+
 </body>
 </html>
