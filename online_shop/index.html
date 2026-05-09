@@ -13,26 +13,43 @@
 
   <!-- Шапка -->
   <header>
-    <h1>Guitar Shop</h1>
-    <img src="/images/icon.png" alt="logo" id="logo">
-    <nav>
-      <a href="#">Главная</a>
-      <a href="#">Каталог</a>
-      <a href="#">Контакты</a>
-    </nav>
-    <div class="cart" id="cart">
-        🛒 Корзина (<span id="cart-count">0</span>)
+    <div class="header-left">
+      <h1>Guitar Shop</h1>
+      <nav>
+        <a href="index.html">Главная</a>
+        <a href="index.html#catalog-section">Каталог</a>
+        <a href="cart.html">Корзина</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <img src="./images/icon.png" alt="logo" id="logo">
     </div>
+    <a href="cart.html" class="cart" id="cart">
+        🛒 Корзина (<span id="cart-count">0</span>)
+    </a>
   </header>
 
   <!-- Поиск товаров -->
   <section class="search-section">
     <h2>Поиск товаров</h2>
-    <input type="text" placeholder="Введите название гитары...">
+    <div class="search-controls">
+      <input id="search-input" type="text" placeholder="Введите название гитары...">
+      <select id="filter-type" class="filter-control">
+        <option value="all">Все типы</option>
+      </select>
+      <select id="filter-brand" class="filter-control">
+        <option value="all">Все бренды</option>
+      </select>
+      <select id="sort-order" class="filter-control">
+        <option value="name-asc">Сортировка: название A→Z</option>
+        <option value="name-desc">Сортировка: название Z→A</option>
+        <option value="price-asc">Сортировка: цена ↑</option>
+        <option value="price-desc">Сортировка: цена ↓</option>
+      </select>
+    </div>
   </section>
 
-  <!-- Каталог (пока без карточек) -->
-  <section class="catalog">
+  <!-- Каталог -->
+  <section class="catalog" id="catalog-section">
     <h2>Каталог товаров</h2>
     <div class="catalog-placeholder">
       <div id="catalog">

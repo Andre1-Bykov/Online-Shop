@@ -1,7 +1,10 @@
 'use strict'
 
 const catalog = document.getElementById('catalog')
-const searchInput = document.querySelector('.search-section input')
+const searchInput = document.getElementById('search-input')
+const filterType = document.getElementById('filter-type')
+const filterBrand = document.getElementById('filter-brand')
+const sortSelect = document.getElementById('sort-order')
 const cartCount = document.getElementById('cart-count')
 let allProducts = {}
 const STORAGE_KEY = 'guitarShopCart'
@@ -56,12 +59,21 @@ function uploadProducts(data){
 
 function getProducts(products){
     allProducts = products
-    renderCatalog(products)
-    setupSearch()
+    populateFilterOptions(products)
+    applyCatalogFilters()
+    setupSearchAndFilters()
 }
 
 function renderCatalog(products) {
     catalog.innerHTML = ''
+    if (!Object.keys(products).length) {
+        const emptyMessage = document.createElement('p')
+        emptyMessage.className = 'catalog-empty'
+        emptyMessage.innerText = 'Товары по заданным фильтрам не найдены.'
+        catalog.append(emptyMessage)
+        return
+    }
+
     for (let guitarName in products){
         const guitarData = products[guitarName]
         const guitarCard = getProductCard(guitarName, guitarData)
@@ -69,16 +81,66 @@ function renderCatalog(products) {
     }
 }
 
-function setupSearch() {
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase()
-        const filtered = {}
-        for (let guitarName in allProducts) {
-            if (guitarName.toLowerCase().includes(searchTerm)) {
-                filtered[guitarName] = allProducts[guitarName]
-            }
+function setupSearchAndFilters() {
+    const apply = () => applyCatalogFilters()
+    searchInput.addEventListener('input', apply)
+    filterType.addEventListener('change', apply)
+    filterBrand.addEventListener('change', apply)
+    sortSelect.addEventListener('change', apply)
+}
+
+function applyCatalogFilters() {
+    const query = searchInput.value.trim().toLowerCase()
+    const typeValue = filterType.value
+    const brandValue = filterBrand.value
+    const sortValue = sortSelect.value
+
+    const filteredEntries = Object.entries(allProducts).filter(([guitarName, guitarData]) => {
+        const matchesSearch = guitarName.toLowerCase().includes(query)
+        const matchesType = typeValue === 'all' || guitarData.type === typeValue
+        const matchesBrand = brandValue === 'all' || guitarData.brand === brandValue
+        return matchesSearch && matchesType && matchesBrand
+    })
+
+    const sortedEntries = filteredEntries.sort((a, b) => {
+        const [nameA, dataA] = a
+        const [nameB, dataB] = b
+        if (sortValue === 'price-asc') {
+            return dataA.price - dataB.price
         }
-        renderCatalog(filtered)
+        if (sortValue === 'price-desc') {
+            return dataB.price - dataA.price
+        }
+        if (sortValue === 'name-desc') {
+            return nameB.localeCompare(nameA, 'ru')
+        }
+        return nameA.localeCompare(nameB, 'ru')
+    })
+
+    renderCatalog(Object.fromEntries(sortedEntries))
+}
+
+function populateFilterOptions(products) {
+    const types = new Set()
+    const brands = new Set()
+
+    for (let guitarName in products) {
+        types.add(products[guitarName].type)
+        brands.add(products[guitarName].brand)
+    }
+
+    types.forEach(type => {
+        const option = document.createElement('option')
+        option.value = type
+        option.innerText = type
+        filterType.append(option)
+    })
+
+    brands.forEach(brand => {
+        const option = document.createElement('option')
+        option.value = brand
+        option.innerText = brand
+        filterBrand.append(option)
     })
 }
 
@@ -101,7 +163,10 @@ function getProductCard(guitarName, guitarData) {
     orderBlock.className = 'order-block'
     orderBlock.style.display = 'none'
 
-    let currentQuantity = 1
+    let pendingQuantity = 1
+    const qtyControls = document.createElement('div')
+    qtyControls.className = 'qty-controls'
+
     const minusButton = document.createElement('button')
     minusButton.type = 'button'
     minusButton.className = 'qty-btn'
@@ -109,7 +174,7 @@ function getProductCard(guitarName, guitarData) {
 
     const qtyValue = document.createElement('span')
     qtyValue.className = 'qty-value'
-    qtyValue.innerText = currentQuantity
+    qtyValue.innerText = pendingQuantity
 
     const plusButton = document.createElement('button')
     plusButton.type = 'button'
@@ -117,23 +182,52 @@ function getProductCard(guitarName, guitarData) {
     plusButton.innerText = '+'
 
     minusButton.onclick = () => {
-        if (currentQuantity > 1) {
-            currentQuantity = setCartItemQuantity(guitarName, guitarData, currentQuantity - 1)
-            qtyValue.innerText = currentQuantity
-        } else {
-            setCartItemQuantity(guitarName, guitarData, 0)
-            orderBlock.style.display = 'none'
-            buttonDiv.style.display = 'block'
+        if (pendingQuantity > 1) {
+            pendingQuantity -= 1
+            qtyValue.innerText = pendingQuantity
         }
     }
 
     plusButton.onclick = () => {
-        currentQuantity = setCartItemQuantity(guitarName, guitarData, currentQuantity + 1)
-        qtyValue.innerText = currentQuantity
+        pendingQuantity += 1
+        qtyValue.innerText = pendingQuantity
     }
 
-    orderBlock.append(minusButton, qtyValue, plusButton)
+    qtyControls.append(minusButton, qtyValue, plusButton)
+    orderBlock.append(qtyControls)
+
+    const confirmButton = document.createElement('button')
+    confirmButton.type = 'button'
+    confirmButton.className = 'add-to-cart-btn'
+    confirmButton.innerText = 'Добавить ещё'
+    confirmButton.onclick = () => {
+        addToCart(guitarName, guitarData, pendingQuantity, cardCount)
+        addedBadge.style.display = 'inline-flex'
+        setTimeout(() => {
+            addedBadge.style.display = 'none'
+        }, 1500)
+        pendingQuantity = 1
+        qtyValue.innerText = pendingQuantity
+    }
+
+    const removeButton = document.createElement('button')
+    removeButton.type = 'button'
+    removeButton.className = 'remove-from-cart-btn'
+    removeButton.innerText = 'Удалить из корзины'
+    removeButton.onclick = () => {
+        setCartItemQuantity(guitarName, guitarData, 0)
+        cardCount.style.display = 'none'
+        orderBlock.style.display = 'none'
+        buttonDiv.style.display = 'block'
+    }
+
+    orderBlock.append(confirmButton, removeButton)
     guitarCard.append(orderBlock)
+
+    const cardCount = document.createElement('div')
+    cardCount.className = 'card-count'
+    cardCount.style.display = 'none'
+    guitarCard.append(cardCount)
 
     const buttonDiv = document.createElement('div')
     buttonDiv.className = 'card-buttons'
@@ -148,20 +242,22 @@ function getProductCard(guitarName, guitarData) {
 
     const existingCartItem = cart.find(item => item.name === guitarName)
     if (existingCartItem) {
-        currentQuantity = existingCartItem.quantity
-        qtyValue.innerText = currentQuantity
+        cardCount.innerText = `В корзине: ${existingCartItem.quantity}`
+        cardCount.style.display = 'block'
         orderBlock.style.display = 'flex'
         buttonDiv.style.display = 'none'
     }
 
     addButton.onclick = () => {
-        currentQuantity = setCartItemQuantity(guitarName, guitarData, currentQuantity)
+        addToCart(guitarName, guitarData, 1, cardCount)
         orderBlock.style.display = 'flex'
         buttonDiv.style.display = 'none'
         addedBadge.style.display = 'inline-flex'
         setTimeout(() => {
             addedBadge.style.display = 'none'
         }, 1500)
+        pendingQuantity = 1
+        qtyValue.innerText = pendingQuantity
     }
 
     buttonDiv.append(addButton)
@@ -251,6 +347,11 @@ function getDescriptionDiv(guitarData) {
     brand.className = 'brand'
     brand.innerText = `Бренд: ${guitarData.brand}`
     descDiv.append(brand)
+    
+    const price = document.createElement('p')
+    price.className = 'price'
+    price.innerText = `Цена: ${guitarData.price.toLocaleString('ru-RU')} ₽`
+    descDiv.append(price)
     
     const type = document.createElement('p')
     type.className = 'type'
