@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Презентация проекта Guitar Shop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.17.1/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.17.1/dist/theme/black.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .reveal p, .reveal li {
+            color: #ccc;
+        }
+        .reveal section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background-attachment: fixed;
+        }
+        .code-snippet {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        .guitar-image {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            margin: 10px;
+        }
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .logo {
+            width: 120px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Титульный слайд -->
+            <section>
+                <h1>Добро пожаловать в Guitar Shop!</h1>
+                <h2>Ваш идеальный магазин гитар</h2>
+                <p>Найдите свою мечту среди лучших гитар</p>
+                <img src="./images/icon.png" alt="Логотип Guitar Shop" class="logo">
+            </section>
+
+            <!-- О магазине -->
+            <section>
+                <h2>Что такое Guitar Shop?</h2>
+                <ul>
+                    <li>Онлайн-магазин с широким ассортиментом гитар</li>
+                    <li>Электрогитары, акустические гитары от лучших брендов</li>
+                    <li>Удобный поиск и фильтры для быстрого выбора</li>
+                    <li>Простая корзина для оформления заказа</li>
+                </ul>
+                <img src="./images/Yamaha-F310.webp" alt="Акустическая гитара Yamaha" class="guitar-image">
+            </section>
+
+            <!-- Наши товары -->
+            <section>
+                <h2>Наши гитары</h2>
+                <p>Мы предлагаем только качественные инструменты от проверенных производителей:</p>
+                <div class="image-grid">
+                    <img src="./images/Fender-Player-Stratocaster.webp" alt="Электрогитара Fender" class="guitar-image">
+                    <img src="./images/Gibson-Les-Paul-Standard-'60s.webp" alt="Электрогитара Gibson" class="guitar-image">
+                    <img src="./images/Taylor-214ce.webp" alt="Акустическая гитара Taylor" class="guitar-image">
+                    <img src="./images/Ibanez-RG421AHM.webp" alt="Электрогитара Ibanez" class="guitar-image">
+                </div>
+            </section>
+
+            <!-- Как пользоваться сайтом -->
+            <section>
+                <h2>Как выбрать гитару?</h2>
+                <ol>
+                    <li><strong>Просмотрите каталог:</strong> На главной странице вы увидите все наши гитары</li>
+                    <li><strong>Используйте поиск:</strong> Введите название гитары в поле поиска</li>
+                    <li><strong>Фильтруйте товары:</strong> Выберите тип гитары или бренд</li>
+                    <li><strong>Сортируйте:</strong> По названию или цене</li>
+                    <li><strong>Добавьте в корзину:</strong> Нажмите кнопку "Добавить в корзину"</li>
+                </ol>
+                <img src="./images/Fender-Player-Stratocaster.webp" alt="Пример выбора" class="guitar-image">
+            </section>
+
+            <!-- Корзина -->
+            <section>
+                <h2>Ваша корзина</h2>
+                <ul>
+                    <li>Все выбранные товары сохраняются в корзине</li>
+                    <li>Можете изменить количество или удалить товар</li>
+                    <li>Видите итоговую сумму заказа</li>
+                    <li>Корзина не исчезнет, даже если закрыть браузер</li>
+                </ul>
+                <img src="./images/icon.png" alt="Корзина" class="guitar-image" style="width: 100px;">
+            </section>
+
+            <!-- Преимущества -->
+            <section>
+                <h2>Почему выбрать нас?</h2>
+                <ul>
+                    <li>Широкий выбор гитар от лучших брендов</li>
+                    <li>Удобный и простой интерфейс</li>
+                    <li>Быстрый поиск и фильтры</li>
+                    <li>Надежное хранение вашей корзины</li>
+                    <li>Качественные фотографии и описания товаров</li>
+                </ul>
+                <div class="image-grid">
+                    <img src="./images/Gibson-Les-Paul-Standard-'60s.webp" alt="Качество" class="guitar-image">
+                    <img src="./images/Yamaha-F310.webp" alt="Удобство" class="guitar-image">
+                </div>
+            </section>
+
+            <!-- Демонстрация -->
+            <section>
+                <h2>Попробуйте сами!</h2>
+                <p>Перейдите на наш сайт и выберите свою гитару:</p>
+                <ul>
+                    <li><a href="index.html" target="_blank" style="color: #4CAF50; font-size: 24px;">Главная страница магазина</a></li>
+                    <li><a href="cart.html" target="_blank" style="color: #4CAF50; font-size: 24px;">Ваша корзина</a></li>
+                </ul>
+                <p>Добавьте товары в корзину и наслаждайтесь музыкой!</p>
+                <img src="./images/Taylor-214ce.webp" alt="Наслаждайтесь музыкой" class="guitar-image">
+            </section>
+
+            <!-- Заключение -->
+            <section>
+                <h2>Спасибо за внимание!</h2>
+                <p>Guitar Shop - ваш источник вдохновения и качества</p>
+                <p>Найдите гитару своей мечты с нами!</p>
+                <img src="./images/icon.png" alt="Спасибо" class="logo">
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.17.1/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide',
+            backgroundTransition: 'fade'
+        });
+    </script>
+</body>
+</html>
