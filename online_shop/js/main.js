@@ -4,9 +4,51 @@ const catalog = document.getElementById('catalog')
 const searchInput = document.querySelector('.search-section input')
 const cartCount = document.getElementById('cart-count')
 let allProducts = {}
-let cart = []
+const STORAGE_KEY = 'guitarShopCart'
+let cart = loadCartFromStorage()
 
+updateCartCount()
 fetch("./data/products.json").then(uploadProducts)
+
+function loadCartFromStorage() {
+    const savedCart = localStorage.getItem(STORAGE_KEY)
+    if (!savedCart) return []
+    try {
+        const parsed = JSON.parse(savedCart)
+        if (!Array.isArray(parsed)) return []
+        return parsed.map(item => ({ ...item, quantity: item.quantity || 1 }))
+    } catch {
+        return []
+    }
+}
+
+function saveCartToStorage() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart))
+}
+
+function updateCartCount() {
+    const total = cart.reduce((sum, item) => sum + (item.quantity || 0), 0)
+    cartCount.innerText = total
+    saveCartToStorage()
+}
+
+function setCartItemQuantity(guitarName, guitarData, quantity) {
+    if (quantity < 1) {
+        cart = cart.filter(item => item.name !== guitarName)
+        updateCartCount()
+        return 0
+    }
+
+    const existingItem = cart.find(item => item.name === guitarName)
+    if (existingItem) {
+        existingItem.quantity = quantity
+    } else {
+        cart.push({name: guitarName, data: guitarData, quantity})
+    }
+
+    updateCartCount()
+    return quantity
+}
 
 function uploadProducts(data){
     data.json().then(getProducts)
@@ -55,14 +97,76 @@ function getProductCard(guitarName, guitarData) {
     const descriptionDiv = getDescriptionDiv(guitarData)
     guitarCard.append(descriptionDiv)
 
+    const orderBlock = document.createElement('div')
+    orderBlock.className = 'order-block'
+    orderBlock.style.display = 'none'
+
+    let currentQuantity = 1
+    const minusButton = document.createElement('button')
+    minusButton.type = 'button'
+    minusButton.className = 'qty-btn'
+    minusButton.innerText = '-'
+
+    const qtyValue = document.createElement('span')
+    qtyValue.className = 'qty-value'
+    qtyValue.innerText = currentQuantity
+
+    const plusButton = document.createElement('button')
+    plusButton.type = 'button'
+    plusButton.className = 'qty-btn'
+    plusButton.innerText = '+'
+
+    minusButton.onclick = () => {
+        if (currentQuantity > 1) {
+            currentQuantity = setCartItemQuantity(guitarName, guitarData, currentQuantity - 1)
+            qtyValue.innerText = currentQuantity
+        } else {
+            setCartItemQuantity(guitarName, guitarData, 0)
+            orderBlock.style.display = 'none'
+            buttonDiv.style.display = 'block'
+        }
+    }
+
+    plusButton.onclick = () => {
+        currentQuantity = setCartItemQuantity(guitarName, guitarData, currentQuantity + 1)
+        qtyValue.innerText = currentQuantity
+    }
+
+    orderBlock.append(minusButton, qtyValue, plusButton)
+    guitarCard.append(orderBlock)
+
     const buttonDiv = document.createElement('div')
     buttonDiv.className = 'card-buttons'
     const addButton = document.createElement('button')
     addButton.innerText = 'Добавить в корзину'
     addButton.className = 'add-to-cart-btn'
-    addButton.onclick = () => addToCart(guitarName, guitarData)
+
+    const addedBadge = document.createElement('span')
+    addedBadge.className = 'added-badge'
+    addedBadge.innerText = '+1'
+    addedBadge.style.display = 'none'
+
+    const existingCartItem = cart.find(item => item.name === guitarName)
+    if (existingCartItem) {
+        currentQuantity = existingCartItem.quantity
+        qtyValue.innerText = currentQuantity
+        orderBlock.style.display = 'flex'
+        buttonDiv.style.display = 'none'
+    }
+
+    addButton.onclick = () => {
+        currentQuantity = setCartItemQuantity(guitarName, guitarData, currentQuantity)
+        orderBlock.style.display = 'flex'
+        buttonDiv.style.display = 'none'
+        addedBadge.style.display = 'inline-flex'
+        setTimeout(() => {
+            addedBadge.style.display = 'none'
+        }, 1500)
+    }
+
     buttonDiv.append(addButton)
     guitarCard.append(buttonDiv)
+    guitarCard.append(addedBadge)
 
     return guitarCard
 }
@@ -184,8 +288,22 @@ function getDescriptionDiv(guitarData) {
     return descDiv
 }
 
-function addToCart(guitarName, guitarData) {
-    cart.push({name: guitarName, data: guitarData})
-    cartCount.innerText = cart.length
-    alert(`"${guitarName}" добавлена в корзину!`)
+function addToCart(guitarName, guitarData, quantity = 1, cardCount = null) {
+    if (quantity < 1) return
+
+    const existingItem = cart.find(item => item.name === guitarName)
+    if (existingItem) {
+        existingItem.quantity += quantity
+    } else {
+        cart.push({name: guitarName, data: guitarData, quantity})
+    }
+
+    if (cardCount) {
+        const currentQty = existingItem ? existingItem.quantity : quantity
+        cardCount.innerText = `В корзине: ${currentQty}`
+        cardCount.style.display = 'block'
+    }
+
+    updateCartCount()
+    alert(`"${guitarName}" добавлена в корзину (${quantity} шт).`)
 }
